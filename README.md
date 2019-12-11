@@ -96,7 +96,7 @@ That's where the Signer kicks in. Given a PDF and a P12 certificate a signature 
 * Thanks to the guys of [PDFKit](https://github.com/foliojs/pdfkit) as well. They've made PDF generation incredibly easy.
 
 ## [Contributing](CONTRIBUTING.md)
-
+therpobinski for the file of getSignatureInfo 
 ## [Changelog](CHANGELOG.md)
 
 
