@@ -101,4 +101,4 @@ That's where the Signer kicks in. Given a PDF and a P12 certificate a signature 
 
 
 ## ADDTIONAL CHANGES
-Setting the Rect coordinates to a variable to be able to place the digital signature anywhere in the PDF. Using the getSignatureInfo from the work of theProbinski to be able to extract informations of the certificate before signing.
+Setting the Rect coordinates to a variable to be able to place the digital signature anywhere in the PDF. Using the getSignatureInfo from the work of therpobinski to be able to extract informations of the certificate before signing.
