@@ -11,6 +11,9 @@ var _pdfkitReferenceMock = _interopRequireDefault(require("./pdfkitReferenceMock
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var { degrees, rgb,PDFDocument ,StandardFonts } = require('pdf-lib');
+
+
 // eslint-disable-next-line import/no-unresolved
 
 /**
@@ -25,11 +28,12 @@ const pdfkitAddPlaceholder = ({
   pdf,
   pdfBuffer,
   reason,
+  sign1,
   signatureLength = _const.DEFAULT_SIGNATURE_LENGTH,
   byteRangePlaceholder = _const.DEFAULT_BYTE_RANGE_PLACEHOLDER
 }) => {
   /* eslint-disable no-underscore-dangle,no-param-reassign */
-  // Generate the signature placeholder
+  // Generate the signature placeholder  //REASON AND LOCATION MUST BE SET DYNAMIC HERE
   const signature = pdf.ref({
     Type: 'Sig',
     Filter: 'Adobe.PPKLite',
@@ -39,14 +43,14 @@ const pdfkitAddPlaceholder = ({
     Reason: new String(reason),
     // eslint-disable-line no-new-wrappers
     M: new Date(),
-    ContactInfo: new String('emailfromp1289@gmail.com'),
+    ContactInfo: new String('hrmo@davaocity.gov.ph'),
     // eslint-disable-line no-new-wrappers
     Name: new String('Name from p12'),
     // eslint-disable-line no-new-wrappers
-    Location: new String('Location from p12') // eslint-disable-line no-new-wrappers
-
+    Location: new String('HRMO, DAVAO CITY') // eslint-disable-line no-new-wrappers
+    
   }); // Check if pdf already contains acroform field
-
+  
   const acroFormPosition = pdfBuffer.lastIndexOf('/Type /AcroForm');
   const isAcroFormExists = acroFormPosition !== -1;
   let fieldIds = [];
@@ -63,11 +67,12 @@ const pdfkitAddPlaceholder = ({
 
   const signatureName = 'Signature'; // Generate signature annotation widget
 
+  
   const widget = pdf.ref({
     Type: 'Annot',
     Subtype: 'Widget',
     FT: 'Sig',
-    Rect: [0, 0, 0, 0],
+    Rect: sign1, // Rect: [0, 0, 0, 0], 188.67
     V: signature,
     T: new String(signatureName + (fieldIds.length + 1)),
     // eslint-disable-line no-new-wrappers
@@ -76,9 +81,10 @@ const pdfkitAddPlaceholder = ({
 
   });
   pdf.page.dictionary.data.Annots = [widget]; // Include the widget in a page
-
+  
   let form;
-
+  
+  
   if (!isAcroFormExists) {
     // Create a form (with the widget) and link in the _root
     form = pdf.ref({
@@ -101,6 +107,7 @@ const pdfkitAddPlaceholder = ({
     form,
     widget
   };
+  
   /* eslint-enable no-underscore-dangle,no-param-reassign */
 };
 
